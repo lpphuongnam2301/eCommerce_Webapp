@@ -3,22 +3,23 @@ package com.project.shopapp.dtos;
 import com.fasterxml.jackson.annotation.JsonProperty;
 import jakarta.validation.constraints.Min;
 import jakarta.validation.constraints.NotBlank;
-import jakarta.validation.constraints.NotNull;
 import jakarta.validation.constraints.Size;
 import lombok.*;
 
-import java.util.Date;
-
 @Data
 @Builder
-@Setter
 @Getter
+@Setter
 @NoArgsConstructor
 @AllArgsConstructor
-public class UserDTO {
+public class OrderDTO {
+    @JsonProperty("user_id")
+    private long userId;
 
     @JsonProperty("fullname")
     private String fullName;
+
+    private String email;
 
     @JsonProperty("phone_number")
     @NotBlank(message = "Phone number is required")
@@ -26,23 +27,17 @@ public class UserDTO {
     private String phoneNumber;
 
     private String address;
+    private String note;
 
-    @NotBlank(message = "Password is required")
-    private String password;
+    @JsonProperty("total_money")
+    private Float totalMoney;
 
-    @JsonProperty("retype_password")
-    private String retypePassword;
+    @JsonProperty("shipping_method")
+    private String shippingMethod;
 
-    @JsonProperty("date_of_birth")
-    private Date dateOfBirth;
+    @JsonProperty("shipping_address")
+    private String shippingAddress;
 
-    @JsonProperty("facebook_account_id")
-    private int facebookAccountId;
-
-    @JsonProperty("google_account_id")
-    private int googleAccountId;
-
-    @NotNull(message = "Role ID is required")
-    @JsonProperty("role_id")
-    private long roleId;
+    @JsonProperty("payment_method")
+    private String paymentMethod;
 }
