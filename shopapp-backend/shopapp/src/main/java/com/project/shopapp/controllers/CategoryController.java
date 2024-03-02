@@ -23,7 +23,7 @@ public class CategoryController {
     }
 
     @PostMapping("")
-    public ResponseEntity<?> insertCategories
+    public ResponseEntity<?> insertCategory
             ( @Valid @RequestBody CategoryDTO categoryDTO
               ,BindingResult result)
     {

@@ -7,6 +7,9 @@ import jakarta.validation.constraints.NotBlank;
 import jakarta.validation.constraints.Size;
 import lombok.*;
 import org.hibernate.validator.constraints.Length;
+import org.springframework.web.multipart.MultipartFile;
+
+import java.util.List;
 
 @Data
 @Getter
@@ -15,7 +18,7 @@ import org.hibernate.validator.constraints.Length;
 @AllArgsConstructor
 public class ProductDTO {
 
-    @NotBlank(message = "Name cannot be empty!")
+    @NotBlank(message = "Name is required")
     @Size(min = 3, max = 100, message = "Title must be between 3 and 100 characters")
     private String name;
 
@@ -27,4 +30,6 @@ public class ProductDTO {
 
     @JsonProperty("category_id")
     private int categoryId;
+
+    private List<MultipartFile> files;
 }

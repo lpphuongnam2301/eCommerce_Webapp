@@ -11,6 +11,6 @@ import org.springframework.core.SpringVersion;
 @NoArgsConstructor
 public class CategoryDTO {
 
-    @NotEmpty(message = "Category's cannot be empty")
+    @NotEmpty(message = "Category's name is required")
     private String name;
 }
