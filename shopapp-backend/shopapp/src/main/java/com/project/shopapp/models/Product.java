@@ -10,6 +10,7 @@ import java.time.LocalDateTime;
 @Table(name = "products")
 @NoArgsConstructor
 @AllArgsConstructor
+@Builder
 @Getter
 @Setter
 public class Product extends BaseEntity{
@@ -29,5 +30,5 @@ public class Product extends BaseEntity{
 
     @ManyToOne
     @JoinColumn(name = "category_id")
-    private Category categoryId;
+    private Category category;
 }

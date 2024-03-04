@@ -12,13 +12,14 @@ import lombok.*;
 @Setter
 public class ProductImage {
 
+    public static final int MAXIMUM_IMAGES = 10;
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
     @ManyToOne
     @JoinColumn(name = "product_id")
-    private Product productId;
+    private Product product;
 
     @Column(name = "image_url", length = 300)
     private String imageUrl;
