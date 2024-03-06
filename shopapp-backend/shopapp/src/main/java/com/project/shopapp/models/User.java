@@ -32,6 +32,7 @@ public class User extends BaseEntity{
     @Column(name = "address", length = 200)
     private String address;
 
+    @Column(name = "is_active")
     public boolean active;
 
     @Column(name = "facebook_account_id")

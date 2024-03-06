@@ -28,7 +28,9 @@ public class UserService implements IUserService{
                 .password(userDTO.getPassword())
                 .dateOfBirth(userDTO.getDateOfBirth())
                 .facebookAccountId(userDTO.getFacebookAccountId())
-                .googleAccountId(userDTO.getGoogleAccountId()).build();
+                .googleAccountId(userDTO.getGoogleAccountId())
+                .active(true)
+                .build();
         Role role = roleRepository.findById(userDTO.getRoleId()).orElseThrow(() -> new Exception("Role not found"));
         newUser.setRoleId(role);
 

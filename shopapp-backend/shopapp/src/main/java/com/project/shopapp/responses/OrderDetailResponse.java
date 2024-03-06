@@ -1,16 +1,19 @@
-package com.project.shopapp.dtos;
+package com.project.shopapp.responses;
 
 import com.fasterxml.jackson.annotation.JsonProperty;
+import com.project.shopapp.models.Order;
+import com.project.shopapp.models.OrderDetail;
 import jakarta.validation.constraints.Min;
 import lombok.*;
 
-@Data
-@Builder
-@Getter
-@Setter
 @NoArgsConstructor
 @AllArgsConstructor
-public class OrderDetailDTO {
+@Setter
+@Data
+@Getter
+@Builder
+public class OrderDetailResponse {
+    private Long id;
 
     @JsonProperty("order_id")
     private Long orderId;
@@ -20,13 +23,12 @@ public class OrderDetailDTO {
 
     private Float price;
 
-    @Min(value = 1)
     @JsonProperty("number_of_product")
     private int number_of_product;
 
     @JsonProperty("total_money")
-    @Min(value = 0)
     private Float totalMoney;
 
     private String color;
+
 }
