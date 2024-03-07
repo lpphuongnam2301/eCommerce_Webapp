@@ -19,4 +19,7 @@ public class Role {
 
     @NotNull
     private String name;
+
+    public static String admin = "ADMIN";
+    public static String user = "USER";
 }

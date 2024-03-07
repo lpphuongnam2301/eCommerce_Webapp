@@ -1,11 +1,11 @@
-package com.project.shopapp.configuration;
+package com.project.shopapp.configurations;
 
 import org.modelmapper.ModelMapper;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 
 @Configuration
-public class MapperConfiguration {
+public class MapperConfig {
     @Bean
     public ModelMapper modelMapper()
     {
