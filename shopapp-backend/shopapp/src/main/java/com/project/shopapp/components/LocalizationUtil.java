@@ -1,4 +1,4 @@
-package com.project.shopapp.utils;
+package com.project.shopapp.components;
 
 import jakarta.servlet.http.HttpServletRequest;
 import lombok.RequiredArgsConstructor;
@@ -16,10 +16,10 @@ public class LocalizationUtil {
     private final MessageSource messageSource;
     private final LocaleResolver localeResolver;
 
-    public String getLocale(String messageKey)
+    public String getLocale(String messageKey, Object ... params)
     {
         Locale locale = localeResolver.resolveLocale(getCurrentRequest());
-        return messageSource.getMessage(messageKey, null, locale);
+        return messageSource.getMessage(messageKey, params, locale);
     }
 
     private HttpServletRequest getCurrentRequest()

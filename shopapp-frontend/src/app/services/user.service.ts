@@ -24,7 +24,8 @@ export class UserService {
   {
     return new HttpHeaders(
       {
-        'Content-Type':'application/json'
+        'Content-Type':'application/json',
+        'Accept-Language': 'vi'
       });
   }
 
