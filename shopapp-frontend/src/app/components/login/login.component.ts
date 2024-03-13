@@ -15,16 +15,17 @@ export class LoginComponent {
   @ViewChild(`loginForm`) registerForm!: NgForm;
   phone : String;
   password : String;
+  rememberMe: boolean;
 
   constructor(private router: Router, private userService: UserService, private tokenService: TokenService)
   {
     this.phone = '';
     this.password = '';
+    this.rememberMe = false;
   }
 
   onPhoneChange()
   {
-
   }
 
   login()
@@ -35,14 +36,17 @@ export class LoginComponent {
       }
       this.userService.login(loginDTO).subscribe({
         next: (response: LoginResponse) => {
-            const {token} = response;
-            this.tokenService.setToken(token);
+            const { token } = response;
+            if(this.rememberMe)
+            {
+              this.tokenService.setToken(token);
+            }
         },
         complete: () => {
 
         },
         error: (error: any) => {
-          alert(`Login fail, error: ${error.error.message}`);
+          alert(`Login fail, error: ${error?.error?.message}`);
         }
       });
   }

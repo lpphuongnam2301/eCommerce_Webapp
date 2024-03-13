@@ -2,16 +2,13 @@
 <project version="4">
   <component name="ChangeListManager">
     <list default="true" id="61afa597-4724-46c1-83a2-98452304310c" name="Changes" comment="">
-      <change afterPath="$PROJECT_DIR$/shopapp/src/main/java/com/project/shopapp/configuration/MapperConfiguration.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/shopapp/src/main/java/com/project/shopapp/services/IOrderService.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/shopapp/src/main/java/com/project/shopapp/services/OrderService.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/shopapp/pom.xml" beforeDir="false" afterPath="$PROJECT_DIR$/shopapp/pom.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/shopapp/src/main/java/com/project/shopapp/controllers/OrderController.java" beforeDir="false" afterPath="$PROJECT_DIR$/shopapp/src/main/java/com/project/shopapp/controllers/OrderController.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/shopapp/src/main/java/com/project/shopapp/dtos/OrderDTO.java" beforeDir="false" afterPath="$PROJECT_DIR$/shopapp/src/main/java/com/project/shopapp/dtos/OrderDTO.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/shopapp/src/main/java/com/project/shopapp/models/Order.java" beforeDir="false" afterPath="$PROJECT_DIR$/shopapp/src/main/java/com/project/shopapp/models/Order.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/shopapp/src/main/java/com/project/shopapp/models/User.java" beforeDir="false" afterPath="$PROJECT_DIR$/shopapp/src/main/java/com/project/shopapp/models/User.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/shopapp/src/main/java/com/project/shopapp/repositories/OrderRepository.java" beforeDir="false" afterPath="$PROJECT_DIR$/shopapp/src/main/java/com/project/shopapp/repositories/OrderRepository.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/shopapp/src/main/java/com/project/shopapp/services/UserService.java" beforeDir="false" afterPath="$PROJECT_DIR$/shopapp/src/main/java/com/project/shopapp/services/UserService.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/misc.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/misc.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/shopapp/src/main/java/com/project/shopapp/configurations/WebSecurityConfig.java" beforeDir="false" afterPath="$PROJECT_DIR$/shopapp/src/main/java/com/project/shopapp/configurations/WebSecurityConfig.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/shopapp/src/main/java/com/project/shopapp/controllers/ProductController.java" beforeDir="false" afterPath="$PROJECT_DIR$/shopapp/src/main/java/com/project/shopapp/controllers/ProductController.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/shopapp/src/main/java/com/project/shopapp/flters/JwtTokenFilter.java" beforeDir="false" afterPath="$PROJECT_DIR$/shopapp/src/main/java/com/project/shopapp/flters/JwtTokenFilter.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/shopapp/uploads/a16cc512-d8f6-4417-9fdd-fa8d7b255f40_Hayla Logomark-01.png" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../shopapp-frontend/src/app/components/login/login.component.html" beforeDir="false" afterPath="$PROJECT_DIR$/../shopapp-frontend/src/app/components/login/login.component.html" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../shopapp-frontend/src/app/components/login/login.component.ts" beforeDir="false" afterPath="$PROJECT_DIR$/../shopapp-frontend/src/app/components/login/login.component.ts" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -24,9 +21,9 @@
   <component name="MarkdownSettingsMigration">
     <option name="stateVersion" value="1" />
   </component>
-  <component name="ProjectColorInfo"><![CDATA[{
-  "associatedIndex": 8
-}]]></component>
+  <component name="ProjectColorInfo">{
+  &quot;associatedIndex&quot;: 8
+}</component>
   <component name="ProjectId" id="2dFpuGSztg7JGCQdJada5skhTvA" />
   <component name="ProjectViewState">
     <option name="hideEmptyMiddlePackages" value="true" />
@@ -38,9 +35,16 @@
     "RunOnceActivity.ShowReadmeOnStart": "true",
     "git-widget-placeholder": "master",
     "kotlin-language-version-configured": "true",
-    "last_opened_file_path": "C:/Users/doudo/OneDrive/Máy tính/learn/github/eCommerce_Webapp/shopapp-backend"
+    "last_opened_file_path": "C:/Users/doudo/OneDrive/Desktop/learn/github/eCommerce_Webapp/shopapp-backend/shopapp"
   }
 }]]></component>
+  <component name="SharedIndexes">
+    <attachedChunks>
+      <set>
+        <option value="jdk-17.0.10-corretto-17.0.10-4caba194b151-5cd809f4" />
+      </set>
+    </attachedChunks>
+  </component>
   <component name="SpellCheckerSettings" RuntimeDictionaries="0" Folders="0" CustomDictionaries="0" DefaultDictionary="application-level" UseSingleDictionary="true" transferred="true" />
   <component name="TaskManager">
     <task active="true" id="Default" summary="Default task">

@@ -12,6 +12,7 @@ import com.project.shopapp.services.ProductService;
 import jakarta.validation.Valid;
 import jakarta.websocket.server.PathParam;
 import lombok.RequiredArgsConstructor;
+import org.springframework.core.io.UrlResource;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageRequest;
 import org.springframework.data.domain.Sort;
@@ -155,6 +156,23 @@ public class ProductController {
     {
         String contenType = file.getContentType();
         return contenType != null && contenType.startsWith("image/");
+    }
+
+    @GetMapping("/images/{imageName}")
+    private ResponseEntity<?> getImaage(@PathVariable("imageName") String imageName)
+    {
+        try {
+            Path imagePath = Paths.get("uploads/"+imageName);
+            UrlResource urlResource = new UrlResource(imagePath.toUri());
+            if(urlResource.exists())
+            {
+                return ResponseEntity.ok().contentType(MediaType.IMAGE_JPEG).body(urlResource);
+            }
+            return ResponseEntity.notFound().build();
+        } catch (Exception e)
+        {
+            return ResponseEntity.notFound().build();
+        }
     }
     //@PostMapping("/generateFakeProducts")
     private ResponseEntity<?> generateFake()

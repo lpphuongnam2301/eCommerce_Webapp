@@ -41,22 +41,20 @@ public class WebSecurityConfig {
                 .addFilterBefore(jwtTokenFilter, UsernamePasswordAuthenticationFilter.class)
                 .authorizeHttpRequests(requests -> {
                     requests.requestMatchers(apiPrefix + "/users/register", apiPrefix + "/users/login").permitAll()
-                            .requestMatchers(GET, apiPrefix + "/orders/**").hasAnyRole(Role.user, Role.admin)
-                            .requestMatchers(POST, apiPrefix + "/orders/**").hasRole(Role.user)
-                            .requestMatchers(PUT, apiPrefix + "/orders/**").hasRole(Role.admin)
-                            .requestMatchers(DELETE, apiPrefix + "/orders/**").hasRole(Role.admin)
-                            .requestMatchers(GET, apiPrefix + "/categories**").hasAnyRole(Role.admin, Role.user)
-                            .requestMatchers(POST, apiPrefix + "/categories/**").hasRole(Role.admin)
-                            .requestMatchers(PUT, apiPrefix + "/categories/**").hasRole(Role.admin)
-                            .requestMatchers(DELETE, apiPrefix + "/categories/**").hasRole(Role.admin)
-                            .requestMatchers(GET, apiPrefix + "/products**").hasAnyRole(Role.admin, Role.user)
-                            .requestMatchers(POST, apiPrefix + "/products/**").hasRole(Role.admin)
-                            .requestMatchers(PUT, apiPrefix + "/products/**").hasRole(Role.admin)
-                            .requestMatchers(DELETE, apiPrefix + "/products/**").hasRole(Role.admin)
-                            .requestMatchers(GET, apiPrefix + "/order_details**").hasAnyRole(Role.admin, Role.user)
-                            .requestMatchers(POST, apiPrefix + "/order_details/**").hasRole(Role.admin)
-                            .requestMatchers(PUT, apiPrefix + "/order_details/**").hasRole(Role.admin)
-                            .requestMatchers(DELETE, apiPrefix + "/order_details/**").hasRole(Role.admin).anyRequest().authenticated();
+                            .requestMatchers(GET,
+                                    String.format("%s/categories/**", apiPrefix)).permitAll()
+
+                            .requestMatchers(GET,
+                                    String.format("%s/products/**", apiPrefix)).permitAll()
+
+                            .requestMatchers(GET,
+                                    String.format("%s/products/images/*", apiPrefix)).permitAll()
+
+                            .requestMatchers(GET,
+                                    String.format("%s/orders/**", apiPrefix)).permitAll()
+
+                            .requestMatchers(GET,
+                                    String.format("%s/order_details/**", apiPrefix)).permitAll().anyRequest().authenticated();
                 }).csrf(AbstractHttpConfigurer::disable);
         httpSecurity.cors(new Customizer<CorsConfigurer<HttpSecurity>>() {
             @Override
