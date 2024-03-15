@@ -7,6 +7,7 @@ import com.project.shopapp.models.OrderStatus;
 import com.project.shopapp.models.User;
 import com.project.shopapp.repositories.OrderRepository;
 import com.project.shopapp.repositories.UserRepository;
+import jakarta.transaction.Transactional;
 import lombok.RequiredArgsConstructor;
 import org.modelmapper.ModelMapper;
 import org.springframework.stereotype.Service;
@@ -21,6 +22,7 @@ public class OrderService implements IOrderService{
     private final UserRepository userRepository;
     private final ModelMapper modelMapper;
     @Override
+    @Transactional
     public Order createOrder(OrderDTO orderDTO) throws Exception {
         modelMapper.typeMap(OrderDTO.class, Order.class)
                 .addMappings(mapper -> mapper.skip(Order::setId));
@@ -45,6 +47,7 @@ public class OrderService implements IOrderService{
     }
 
     @Override
+    @Transactional
     public Order updateOrder(Long id, OrderDTO orderDTO) {
         Order order = getOrder(id);
         modelMapper.typeMap(OrderDTO.class, Order.class)
@@ -54,6 +57,7 @@ public class OrderService implements IOrderService{
     }
 
     @Override
+    @Transactional
     public void deleteOrder(Long id) {
         Order order = orderRepository.findById(id).orElse(null);
         if(order != null)

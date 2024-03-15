@@ -40,7 +40,7 @@ public class JwtTokenFilter extends OncePerRequestFilter {
             }
             final String authHeader = request.getHeader("Authorization");
 
-            if(authHeader == null && !authHeader.startsWith("Bearer "))
+            if(authHeader == null || !authHeader.startsWith("Bearer "))
             {
                 response.sendError(HttpServletResponse.SC_UNAUTHORIZED, "AuthHeader null or not started with Bearer");
             }
@@ -76,7 +76,7 @@ public class JwtTokenFilter extends OncePerRequestFilter {
                 Pair.of(apiPrefix+"/products", "GET"),
                 Pair.of(apiPrefix+"/categories", "GET"),
                 Pair.of(apiPrefix+"/users/register", "POST"),
-                //Pair.of(apiPrefix+"/products/images/**", "GET"),
+//                Pair.of(apiPrefix+"/products/images/**", "GET"),
                 Pair.of(apiPrefix+"/users/login", "POST")
         );
         for(Pair<String, String> bypass : byPassTokens)

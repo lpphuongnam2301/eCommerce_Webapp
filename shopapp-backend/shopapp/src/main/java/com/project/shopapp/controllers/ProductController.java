@@ -31,8 +31,10 @@ import java.nio.file.Path;
 import java.nio.file.Paths;
 import java.nio.file.StandardCopyOption;
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.List;
 import java.util.UUID;
+import java.util.stream.Collectors;
 
 @RestController
 @RequestMapping("${api.prefix}/products")
@@ -42,12 +44,14 @@ public class ProductController {
     private final ProductService productService;
     @GetMapping("")
     public ResponseEntity<?> getProducts
-            ( @PathParam("page") int page,
-              @PathParam("limit") int limit)
+            ( @RequestParam(defaultValue = "0") int page,
+              @RequestParam(defaultValue = "6") int limit,
+              @RequestParam(defaultValue = "") String keyword,
+              @RequestParam(defaultValue = "0", name = "category_id") Long categoryId)
     {
         //phan trang
-        PageRequest pageRequest = PageRequest.of(page, limit, Sort.by("createdAt").descending());
-        Page<ProductResponse> productPage = productService.getAllProducts(pageRequest);
+        PageRequest pageRequest = PageRequest.of(page, limit, Sort.by("id").ascending());
+        Page<ProductResponse> productPage = productService.getAllProducts(pageRequest, keyword, categoryId);
         int totalPages = productPage.getTotalPages();
         List<ProductResponse> products = productPage.getContent();
 
@@ -159,7 +163,7 @@ public class ProductController {
     }
 
     @GetMapping("/images/{imageName}")
-    private ResponseEntity<?> getImaage(@PathVariable("imageName") String imageName)
+    private ResponseEntity<?> getImaage(@PathVariable(value = "imageName") String imageName)
     {
         try {
             Path imagePath = Paths.get("uploads/"+imageName);
@@ -168,7 +172,9 @@ public class ProductController {
             {
                 return ResponseEntity.ok().contentType(MediaType.IMAGE_JPEG).body(urlResource);
             }
-            return ResponseEntity.notFound().build();
+            else {
+                return ResponseEntity.ok().contentType(MediaType.IMAGE_JPEG).body(new UrlResource(Paths.get("uploads/404.jpg").toUri()));
+            }
         } catch (Exception e)
         {
             return ResponseEntity.notFound().build();
@@ -197,5 +203,20 @@ public class ProductController {
             }
         }
         return ResponseEntity.ok("fake ok");
+    }
+
+    @GetMapping("/by-ids")
+    public ResponseEntity<?> getProductByIds(@RequestParam("ids") String ids)
+    {
+        try {
+            List<Long> productIds = Arrays.stream(ids.split(","))
+                    .map(Long::parseLong)
+                    .toList();
+            List<Product> products = productService.findProductsByIds(productIds);
+            return ResponseEntity.ok(products);
+        } catch (Exception e)
+        {
+            return ResponseEntity.badRequest().body(e.getMessage());
+        }
     }
 }

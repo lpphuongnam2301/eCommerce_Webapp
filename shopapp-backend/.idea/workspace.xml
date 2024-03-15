@@ -1,15 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <project version="4">
   <component name="ChangeListManager">
-    <list default="true" id="61afa597-4724-46c1-83a2-98452304310c" name="Changes" comment="">
-      <change beforePath="$PROJECT_DIR$/.idea/misc.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/misc.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/shopapp/src/main/java/com/project/shopapp/configurations/WebSecurityConfig.java" beforeDir="false" afterPath="$PROJECT_DIR$/shopapp/src/main/java/com/project/shopapp/configurations/WebSecurityConfig.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/shopapp/src/main/java/com/project/shopapp/controllers/ProductController.java" beforeDir="false" afterPath="$PROJECT_DIR$/shopapp/src/main/java/com/project/shopapp/controllers/ProductController.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/shopapp/src/main/java/com/project/shopapp/flters/JwtTokenFilter.java" beforeDir="false" afterPath="$PROJECT_DIR$/shopapp/src/main/java/com/project/shopapp/flters/JwtTokenFilter.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/shopapp/uploads/a16cc512-d8f6-4417-9fdd-fa8d7b255f40_Hayla Logomark-01.png" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/../shopapp-frontend/src/app/components/login/login.component.html" beforeDir="false" afterPath="$PROJECT_DIR$/../shopapp-frontend/src/app/components/login/login.component.html" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/../shopapp-frontend/src/app/components/login/login.component.ts" beforeDir="false" afterPath="$PROJECT_DIR$/../shopapp-frontend/src/app/components/login/login.component.ts" afterDir="false" />
-    </list>
+    <list default="true" id="61afa597-4724-46c1-83a2-98452304310c" name="Changes" comment="" />
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
     <option name="HIGHLIGHT_NON_ACTIVE_CHANGELIST" value="false" />
@@ -29,15 +21,15 @@
     <option name="hideEmptyMiddlePackages" value="true" />
     <option name="showLibraryContents" value="true" />
   </component>
-  <component name="PropertiesComponent"><![CDATA[{
-  "keyToString": {
-    "RunOnceActivity.OpenProjectViewOnStart": "true",
-    "RunOnceActivity.ShowReadmeOnStart": "true",
-    "git-widget-placeholder": "master",
-    "kotlin-language-version-configured": "true",
-    "last_opened_file_path": "C:/Users/doudo/OneDrive/Desktop/learn/github/eCommerce_Webapp/shopapp-backend/shopapp"
+  <component name="PropertiesComponent">{
+  &quot;keyToString&quot;: {
+    &quot;RunOnceActivity.OpenProjectViewOnStart&quot;: &quot;true&quot;,
+    &quot;RunOnceActivity.ShowReadmeOnStart&quot;: &quot;true&quot;,
+    &quot;git-widget-placeholder&quot;: &quot;master&quot;,
+    &quot;kotlin-language-version-configured&quot;: &quot;true&quot;,
+    &quot;last_opened_file_path&quot;: &quot;C:/Users/doudo/OneDrive/Desktop/learn/github/eCommerce_Webapp/shopapp-backend/shopapp&quot;
   }
-}]]></component>
+}</component>
   <component name="SharedIndexes">
     <attachedChunks>
       <set>

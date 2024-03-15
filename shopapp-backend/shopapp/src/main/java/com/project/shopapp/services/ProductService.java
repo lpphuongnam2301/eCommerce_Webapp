@@ -9,10 +9,14 @@ import com.project.shopapp.repositories.CategoryRepository;
 import com.project.shopapp.repositories.ProductImageRepository;
 import com.project.shopapp.repositories.ProductRepository;
 import com.project.shopapp.responses.ProductResponse;
+import jakarta.transaction.Transactional;
 import lombok.RequiredArgsConstructor;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageRequest;
 import org.springframework.stereotype.Service;
+
+import java.util.List;
+import java.util.Optional;
 
 @Service
 @RequiredArgsConstructor
@@ -22,6 +26,7 @@ public class ProductService implements IProductService {
     private final CategoryRepository categoryRepository;
     private final ProductImageRepository productImageRepository;
     @Override
+    @Transactional
     public Product createProduct(ProductDTO productDTO) throws Exception {
         Category category = categoryRepository.findById(productDTO.getCategoryId()).orElseThrow(() -> new Exception("Cannot find category with ID: " + productDTO.getCategoryId()));
 
@@ -37,16 +42,22 @@ public class ProductService implements IProductService {
 
     @Override
     public Product getProductById(Long id) throws Exception {
-        return productRepository.findById(id).orElseThrow(() -> new Exception("Cannot find product with ID: " + id));
+        Optional<Product> optionalProduct = productRepository.getDetailProduct(id);
+        if(optionalProduct.isPresent()) {
+            return optionalProduct.get();
+        }
+        throw new Exception("Cannot find product with id =" + id);
     }
 
     @Override
-    public Page<ProductResponse> getAllProducts(PageRequest pageRequest) {
+    public Page<ProductResponse> getAllProducts(PageRequest pageRequest, String keyword, Long categoryId) {
 
-        return productRepository.findAll(pageRequest).map(ProductResponse::getProductResponse);
+        Page<Product> productPage = productRepository.searchProducts(categoryId, keyword, pageRequest);
+        return productPage.map(ProductResponse::getProductResponse);
     }
 
     @Override
+    @Transactional
     public Product updateProduct(Long id, ProductDTO productDTO) throws Exception {
         Category category = categoryRepository.findById(productDTO.getCategoryId()).orElseThrow(() -> new Exception("Cannot find category with ID: " + productDTO.getCategoryId()));
         Product existsProduct = getProductById(id);
@@ -62,6 +73,7 @@ public class ProductService implements IProductService {
     }
 
     @Override
+    @Transactional
     public void deleteProduct(Long id) {
         if(productRepository.findById(id).isPresent())
         {
@@ -75,6 +87,7 @@ public class ProductService implements IProductService {
     }
 
     @Override
+    @Transactional
     public ProductImage createProductImage(Long productId, ProductImageDTO productImageDTO) throws Exception
     {
         Product existsProduct = productRepository.findById(productId).orElseThrow(() -> new Exception("Cannot find product with ID: " + productImageDTO.getProductId()));
@@ -87,6 +100,15 @@ public class ProductService implements IProductService {
         {
             throw new Exception("Cannot upload over "+ProductImage.MAXIMUM_IMAGES+" images for 1 product");
         }
+        if (existsProduct.getThumbnail().isEmpty()) {
+            existsProduct.setThumbnail(newProductImage.getImageUrl());
+        }
+        productRepository.save(existsProduct);
         return productImageRepository.save(newProductImage);
+    }
+
+    @Override
+    public List<Product> findProductsByIds(List<Long> productIds) {
+        return productRepository.findProductsByIds(productIds);
     }
 }

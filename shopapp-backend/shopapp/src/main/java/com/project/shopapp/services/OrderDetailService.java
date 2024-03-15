@@ -7,6 +7,7 @@ import com.project.shopapp.models.Product;
 import com.project.shopapp.repositories.OrderDetailRepository;
 import com.project.shopapp.repositories.OrderRepository;
 import com.project.shopapp.repositories.ProductRepository;
+import jakarta.transaction.Transactional;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 
@@ -19,6 +20,7 @@ public class OrderDetailService implements IOrderDetailService {
     private final OrderDetailRepository orderDetailRepository;
     private final ProductRepository productRepository;
     @Override
+    @Transactional
     public OrderDetail createOrderDetail(OrderDetailDTO orderDetailDTO) throws Exception {
         Order oder = orderRepository.findById(orderDetailDTO.getOrderId()).orElseThrow(() -> new Exception("Cannot find order id: " + orderDetailDTO.getOrderId()));
         Product product = productRepository.findById(orderDetailDTO.getOrderId()).orElseThrow(() -> new Exception("Cannot find product id: " + orderDetailDTO.getProductId()));
@@ -40,6 +42,7 @@ public class OrderDetailService implements IOrderDetailService {
     }
 
     @Override
+    @Transactional
     public OrderDetail updateOrderDetail(Long id, OrderDetailDTO orderDetailDTO) throws Exception {
         OrderDetail orderDetail = orderDetailRepository.findById(id).orElseThrow(() -> new Exception("Cannot find order detail with ID: " + id ));
         Order order = orderRepository.findById(orderDetailDTO.getOrderId()).orElseThrow(() -> new Exception("Cannot find order with ID: " + orderDetailDTO.getOrderId() ));
@@ -52,6 +55,7 @@ public class OrderDetailService implements IOrderDetailService {
     }
 
     @Override
+    @Transactional
     public void deleteOrderDetail(Long id) {
         orderDetailRepository.deleteById(id);
     }
