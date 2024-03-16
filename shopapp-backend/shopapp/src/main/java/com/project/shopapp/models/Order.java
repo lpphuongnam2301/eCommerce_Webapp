@@ -1,11 +1,11 @@
 package com.project.shopapp.models;
 
+import com.fasterxml.jackson.annotation.JsonManagedReference;
 import jakarta.persistence.*;
-import jakarta.validation.constraints.NotBlank;
 import lombok.*;
 
-import java.time.LocalDateTime;
-import java.util.Date;
+import java.time.LocalDate;
+import java.util.List;
 
 @Entity
 @Table(name = "orders")
@@ -22,6 +22,7 @@ public class Order {
 
     @ManyToOne
     @JoinColumn(name = "user_id")
+//    @JsonManagedReference
     private User user;
 
     @Column(name = "fullname", length = 100)
@@ -40,7 +41,7 @@ public class Order {
     private String note;
 
     @Column(name = "order_date")
-    private Date orderDate;
+    private LocalDate orderDate;
 
     @Column(name = "status_order")
     private String status;
@@ -52,7 +53,7 @@ public class Order {
     @Column(name = "shipping_address")
     private String shippingAddress;
     @Column(name = "shipping_date")
-    private Date shippingDate;
+    private LocalDate shippingDate;
     @Column(name = "tracking_number")
     private String trackingNumber;
 
@@ -61,4 +62,9 @@ public class Order {
 
     @Column(name = "active")
     private boolean active;
+
+    @OneToMany(mappedBy = "order", cascade = CascadeType.ALL, fetch = FetchType.LAZY)
+    @JsonManagedReference
+    private List<OrderDetail> orderDetails;
+
 }

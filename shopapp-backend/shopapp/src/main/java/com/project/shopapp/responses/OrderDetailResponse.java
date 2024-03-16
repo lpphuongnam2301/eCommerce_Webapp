@@ -23,12 +23,25 @@ public class OrderDetailResponse {
 
     private Float price;
 
-    @JsonProperty("number_of_product")
-    private int number_of_product;
+    @JsonProperty("number_of_products")
+    private int number_of_products;
 
     @JsonProperty("total_money")
     private Float totalMoney;
 
     private String color;
+
+    public static OrderDetailResponse fromOrderDetail(OrderDetail orderDetail) {
+        return OrderDetailResponse
+                .builder()
+                .id(orderDetail.getId())
+                .orderId(orderDetail.getOrder().getId())
+                .productId(orderDetail.getProduct().getId())
+                .price(orderDetail.getPrice())
+                .number_of_products(orderDetail.getNumberOfProducts())
+                .totalMoney(orderDetail.getTotalMoney())
+                .color(orderDetail.getColor())
+                .build();
+    }
 
 }

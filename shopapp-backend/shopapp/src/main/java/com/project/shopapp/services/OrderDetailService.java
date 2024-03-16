@@ -29,7 +29,7 @@ public class OrderDetailService implements IOrderDetailService {
                 .order(oder)
                 .product(product)
                 .price(orderDetailDTO.getPrice())
-                .numberOfProduct(orderDetailDTO.getNumber_of_product())
+                .numberOfProducts(orderDetailDTO.getNumber_of_product())
                 .totalMoney(orderDetailDTO.getTotalMoney())
                 .color(orderDetailDTO.getColor())
                 .build();
@@ -48,7 +48,7 @@ public class OrderDetailService implements IOrderDetailService {
         Order order = orderRepository.findById(orderDetailDTO.getOrderId()).orElseThrow(() -> new Exception("Cannot find order with ID: " + orderDetailDTO.getOrderId() ));
 
         orderDetail.setPrice(orderDetailDTO.getPrice());
-        orderDetail.setNumberOfProduct(orderDetailDTO.getNumber_of_product());
+        orderDetail.setNumberOfProducts(orderDetailDTO.getNumber_of_product());
         orderDetail.setTotalMoney(orderDetailDTO.getTotalMoney());
         orderDetail.setColor(orderDetailDTO.getColor());
         return orderDetailRepository.save(orderDetail);

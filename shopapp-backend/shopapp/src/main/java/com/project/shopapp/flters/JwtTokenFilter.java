@@ -75,6 +75,7 @@ public class JwtTokenFilter extends OncePerRequestFilter {
         final List<Pair<String, String>> byPassTokens = Arrays.asList(
                 Pair.of(apiPrefix+"/products", "GET"),
                 Pair.of(apiPrefix+"/categories", "GET"),
+                Pair.of(apiPrefix+"/orders/", "GET"),
                 Pair.of(apiPrefix+"/users/register", "POST"),
 //                Pair.of(apiPrefix+"/products/images/**", "GET"),
                 Pair.of(apiPrefix+"/users/login", "POST")

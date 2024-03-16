@@ -60,7 +60,7 @@ public class UserService implements IUserService{
     }
 
     @Override
-    public String login(String phoneNumber, String password) throws Exception {
+    public String login(String phoneNumber, String password, Long roleId) throws Exception {
         Optional<User> optionalUser = userRepository.findByPhoneNumber(phoneNumber);
         if(optionalUser.isEmpty())
         {
@@ -75,6 +75,15 @@ public class UserService implements IUserService{
                 throw new BadCredentialsException("Invalid phone number or password");
             }
         }
+        Optional<Role> optionalRole = roleRepository.findById(roleId);
+        if(optionalRole.isEmpty() || !roleId.equals(user.getRole().getId()))
+        {
+            throw new Exception("Role does not exist");
+        }
+        if(!optionalUser.get().isActive())
+        {
+            throw new Exception("User is locked");
+        }
 
         UsernamePasswordAuthenticationToken authenticationToken = new UsernamePasswordAuthenticationToken(
                 phoneNumber, password, user.getAuthorities()
@@ -82,4 +91,23 @@ public class UserService implements IUserService{
         authenticationManager.authenticate(authenticationToken);
         return jwtTokenUtil.generateToken(optionalUser.get());
     }
+
+    @Override
+    public User getUserDetailFromToken(String token) throws Exception {
+        if(jwtTokenUtil.isTokenExpired(token))
+        {
+            throw new Exception("Token is expired");
+        }
+        String phone = jwtTokenUtil.getPhoneNumber(token);
+        Optional<User> user = userRepository.findByPhoneNumber(phone);
+
+        if(user.isPresent())
+        {
+            return user.get();
+        } else {
+            throw new Exception("User not found");
+        }
+    }
+
+
 }

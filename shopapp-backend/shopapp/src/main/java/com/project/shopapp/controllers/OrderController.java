@@ -2,6 +2,7 @@ package com.project.shopapp.controllers;
 
 import com.project.shopapp.dtos.OrderDTO;
 import com.project.shopapp.models.Order;
+import com.project.shopapp.responses.OrderResponse;
 import com.project.shopapp.services.OrderService;
 import jakarta.validation.Valid;
 import lombok.RequiredArgsConstructor;
@@ -28,7 +29,8 @@ public class OrderController {
     public ResponseEntity<?> getOrder(@Valid @PathVariable("id") Long id)
     {
         Order order = orderService.getOrder(id);
-        return ResponseEntity.ok(order);
+        OrderResponse orderResponse = OrderResponse.buildOrder(order);
+        return ResponseEntity.ok(orderResponse);
     }
 
     @PostMapping("")
@@ -41,8 +43,8 @@ public class OrderController {
 
                 return ResponseEntity.badRequest().body(errorMessages);
             }
-            orderService.createOrder(orderDTO);
-            return ResponseEntity.ok("Create order successfully!");
+            Order order = orderService.createOrder(orderDTO);
+            return ResponseEntity.ok(order);
         } catch (Exception err)
         {
             return ResponseEntity.badRequest().body(err.getMessage());

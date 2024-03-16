@@ -3,6 +3,7 @@ package com.project.shopapp.controllers;
 import com.project.shopapp.dtos.OrderDetailDTO;
 import com.project.shopapp.models.OrderDetail;
 import com.project.shopapp.repositories.OrderDetailRepository;
+import com.project.shopapp.responses.OrderDetailResponse;
 import com.project.shopapp.services.OrderDetailService;
 import com.project.shopapp.services.OrderService;
 import jakarta.validation.Valid;
@@ -33,7 +34,11 @@ public class OrderDetailController {
     public ResponseEntity<?> getOrderDetails(@Valid @PathVariable("order_id") Long orderId)
     {
         List<OrderDetail> orderDetails = orderDetailService.findByOrderId(orderId);
-        return ResponseEntity.ok(orderDetails);
+        List<OrderDetailResponse> orderDetailResponses = orderDetails
+                .stream()
+                .map(OrderDetailResponse::fromOrderDetail)
+                .toList();
+        return ResponseEntity.ok(orderDetailResponses);
     }
 
     @GetMapping("/{id}")

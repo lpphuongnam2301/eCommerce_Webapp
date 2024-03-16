@@ -1,5 +1,8 @@
 package com.project.shopapp.models;
 
+import com.fasterxml.jackson.annotation.JsonBackReference;
+import com.fasterxml.jackson.annotation.JsonIgnore;
+import com.fasterxml.jackson.annotation.JsonManagedReference;
 import jakarta.persistence.*;
 import lombok.*;
 
@@ -18,6 +21,8 @@ public class OrderDetail {
 
     @ManyToOne
     @JoinColumn(name = "order_id")
+//    @JsonIgnore
+    @JsonBackReference
     private Order order;
 
     @ManyToOne
@@ -28,7 +33,7 @@ public class OrderDetail {
     private Float price;
 
     @Column(name = "number_of_products", nullable = false)
-    private int numberOfProduct;
+    private int numberOfProducts;
 
     @Column(name = "total_money", nullable = false)
     private Float totalMoney;

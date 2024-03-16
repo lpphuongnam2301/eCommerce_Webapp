@@ -9,3 +9,6 @@ export interface Product {
   url: string;
   product_images: ProductImage[];
 }
+
+  
+  
