@@ -13,10 +13,12 @@ import { UserService } from '../../services/user.service';
 import { TokenService } from '../../services/token.service';
 import { UserResponse } from '../../responses/user/user.response';
 import { UpdateUserDTO } from '../../dtos/user/update.user.dto';
+
 import { HeaderComponent } from '../header/header.component';
 import { FooterComponent } from '../footer/footer.component';
-import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { CommonModule } from '@angular/common';
+import { FormsModule, ReactiveFormsModule } from '@angular/forms';
+
 
 @Component({
   selector: 'user-profile',
@@ -24,8 +26,12 @@ import { CommonModule } from '@angular/common';
   styleUrls: ['./user.profile.component.scss'],
   standalone: true,
   imports: [
-    HeaderComponent, FooterComponent, FormsModule, CommonModule, ReactiveFormsModule
-  ]
+    FooterComponent,
+    HeaderComponent,
+    CommonModule,
+    FormsModule, 
+    ReactiveFormsModule,   
+  ],
 })
 export class UserProfileComponent implements OnInit {
   userResponse?: UserResponse;

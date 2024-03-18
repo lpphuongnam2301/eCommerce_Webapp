@@ -1,15 +1,15 @@
 import { Component, OnInit } from '@angular/core';
-import { ProductService } from '../../services/product.service';
-import { CartService } from '../../services/cart.service';
-import { CategoryService } from '../../services/category.service';
 import { Router, ActivatedRoute } from '@angular/router';
 import { Product } from '../../models/product';
-import { ProductImage } from '../../models/product.image';
+import { ProductService } from '../../services/product.service';
+import { CartService } from '../../services/cart.service';
 import { environment } from '../../environments/environment';
+import { ProductImage } from '../../models/product.image';
 import { HeaderComponent } from '../header/header.component';
 import { FooterComponent } from '../footer/footer.component';
-import { FormsModule } from '@angular/forms';
 import { CommonModule } from '@angular/common';
+import { NgbModule } from '@ng-bootstrap/ng-bootstrap';
+
 
 @Component({
   selector: 'app-detail-product',
@@ -17,7 +17,10 @@ import { CommonModule } from '@angular/common';
   styleUrls: ['./detail-product.component.scss'],
   standalone: true,
   imports: [
-    HeaderComponent, FooterComponent, FormsModule, CommonModule
+    FooterComponent,
+    HeaderComponent,
+    CommonModule,
+    NgbModule
   ]
 })
 
@@ -26,6 +29,7 @@ export class DetailProductComponent implements OnInit {
   productId: number = 0;
   currentImageIndex: number = 0;
   quantity: number = 1;
+  isPressedAddToCart:boolean = false;
   constructor(
     private productService: ProductService,
     private cartService: CartService,
@@ -36,11 +40,9 @@ export class DetailProductComponent implements OnInit {
     ) {
       
     }
-    ngOnInit() {   
+    ngOnInit() { 
       const idParam = this.activatedRoute.snapshot.paramMap.get('id');
       debugger
-      //this.cartService.clearCart();
-
       if (idParam !== null) {
         this.productId = +idParam;
       }
@@ -72,7 +74,7 @@ export class DetailProductComponent implements OnInit {
     showImage(index: number): void {
       debugger
       if (this.product && this.product.product_images && 
-          this.product.product_images.length > 0) {   
+          this.product.product_images.length > 0) {       
         if (index < 0) {
           index = 0;
         } else if (index >= this.product.product_images.length) {
@@ -83,7 +85,7 @@ export class DetailProductComponent implements OnInit {
     }
     thumbnailClick(index: number) {
       debugger
-      this.currentImageIndex = index;
+      this.currentImageIndex = index; 
     }  
     nextImage(): void {
       debugger
@@ -96,6 +98,7 @@ export class DetailProductComponent implements OnInit {
     }      
     addToCart(): void {
       debugger
+      this.isPressedAddToCart = true;
       if (this.product) {
         this.cartService.addToCart(this.product.id, this.quantity);
       } else {
@@ -104,6 +107,7 @@ export class DetailProductComponent implements OnInit {
     }    
         
     increaseQuantity(): void {
+      debugger
       this.quantity++;
     }
     
@@ -112,8 +116,16 @@ export class DetailProductComponent implements OnInit {
         this.quantity--;
       }
     }
-    
+    getTotalPrice(): number {
+      if (this.product) {
+        return this.product.price * this.quantity;
+      }
+      return 0;
+    }
     buyNow(): void {      
+      if(this.isPressedAddToCart == false) {
+        this.addToCart();
+      }
       this.router.navigate(['/orders']);
     }    
 }

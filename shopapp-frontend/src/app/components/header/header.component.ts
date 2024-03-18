@@ -1,20 +1,23 @@
 import { Component, OnInit } from '@angular/core';
 import { UserService } from '../../services/user.service';
-import { UserResponse } from '../../responses/user/user.response';
-import { NgbPopoverConfig } from '@ng-bootstrap/ng-bootstrap';
-import { TokenService } from '../../services/token.service';
+
 import { ActivatedRoute, Router } from '@angular/router';
+import { TokenService } from '../../services/token.service';
+import { UserResponse } from '../../responses/user/user.response';
+
 import { CommonModule } from '@angular/common';
-import { FormsModule } from '@angular/forms';
 import { NgbModule } from '@ng-bootstrap/ng-bootstrap';
+import { RouterModule } from '@angular/router';  
 
 @Component({
   selector: 'app-header',
   templateUrl: './header.component.html',
   styleUrls: ['./header.component.scss'],
   standalone: true,
-  imports: [
-    CommonModule, FormsModule, NgbModule
+  imports: [    
+    CommonModule,
+    NgbModule,
+    RouterModule
   ]
 })
 export class HeaderComponent implements OnInit{
@@ -23,8 +26,7 @@ export class HeaderComponent implements OnInit{
   activeNavItem: number = 0;
 
   constructor(
-    private userService: UserService,   
-    //private popoverConfig: NgbPopoverConfig,  
+    private userService: UserService,       
     private tokenService: TokenService,    
     private router: Router,
   ) {
@@ -49,11 +51,12 @@ export class HeaderComponent implements OnInit{
       this.tokenService.removeToken();
       this.userResponse = this.userService.getUserResponseFromLocalStorage();    
     }
-    this.isPopoverOpen = false;   
+    this.isPopoverOpen = false; 
   }
 
   
   setActiveNavItem(index: number) {    
     this.activeNavItem = index;
+    //alert(this.activeNavItem);
   }  
 }

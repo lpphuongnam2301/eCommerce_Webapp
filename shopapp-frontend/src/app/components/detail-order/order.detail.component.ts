@@ -3,14 +3,15 @@ import { Product } from '../../models/product';
 import { CartService } from '../../services/cart.service';
 import { ProductService } from '../../services/product.service';
 import { OrderService } from '../../services/order.service';
-import { environment } from '../../environments/environment';
 import { OrderDTO } from '../../dtos/order/order.dto';
+import { ActivatedRoute } from '@angular/router';
 import { OrderResponse } from '../../responses/order/order.response';
+import { environment } from '../../environments/environment';
 import { OrderDetail } from '../../models/order.detail';
-import { CommonModule } from '@angular/common';
-import { FormsModule } from '@angular/forms';
-import { HeaderComponent } from '../header/header.component';
 import { FooterComponent } from '../footer/footer.component';
+import { HeaderComponent } from '../header/header.component';
+import { CommonModule } from '@angular/common';
+
 
 @Component({
   selector: 'app-order-detail',
@@ -18,11 +19,12 @@ import { FooterComponent } from '../footer/footer.component';
   styleUrls: ['./order.detail.component.scss'],
   standalone: true,
   imports: [
-    HeaderComponent, FooterComponent, FormsModule, CommonModule
+    FooterComponent,
+    HeaderComponent,
+    CommonModule
   ]
 })
-export class OrderDetailComponent implements OnInit {
-
+export class OrderDetailComponent implements OnInit {  
   orderResponse: OrderResponse = {
     id: 0, 
     user_id: 0,
@@ -40,15 +42,18 @@ export class OrderDetailComponent implements OnInit {
     payment_method: '',
     order_details: [] 
   };  
-  constructor(private orderService: OrderService) {}
+  constructor(
+    private orderService: OrderService,
+    private route: ActivatedRoute
+    ) {}
 
   ngOnInit(): void {
     this.getOrderDetails();
   }
-
+  
   getOrderDetails(): void {
     debugger
-    const orderId = 10; 
+    const orderId = Number(this.route.snapshot.paramMap.get('orderId'));
     this.orderService.getOrderById(orderId).subscribe({
       next: (response: any) => {        
         debugger;       
