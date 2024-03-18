@@ -8,7 +8,6 @@ export class TokenService {
     private readonly TOKEN_KEY = 'access_token';
     private jwtHelperService = new JwtHelperService();
     constructor(){}
-    //getter/setter
     getToken():string {
         return localStorage.getItem(this.TOKEN_KEY) ?? '';
     }

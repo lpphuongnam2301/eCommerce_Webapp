@@ -1,4 +1,4 @@
-import { OrderDetail } from "src/app/models/order.detail";
+import { OrderDetail } from "../../models/order.detail";
 export interface OrderResponse {
     id: number;
     user_id: number;
@@ -14,7 +14,7 @@ export interface OrderResponse {
     shipping_address: string;
     shipping_date: Date; // Dạng chuỗi ISO 8601
     payment_method: string;
-    order_details: OrderDetail[]; // Đảm bảo có một interface OrderDetail tương ứng
+    order_details: OrderDetail[]; 
   }
   
   

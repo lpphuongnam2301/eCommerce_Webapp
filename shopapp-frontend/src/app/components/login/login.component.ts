@@ -2,17 +2,29 @@ import { Component, ViewChild, OnInit } from '@angular/core';
 import { LoginDTO } from '../../dtos/user/login.dto';
 import { UserService } from '../../services/user.service';
 import { TokenService } from '../../services/token.service';
-import { RoleService } from '../../services/role.service'; // Import RoleService
+import { RoleService } from '../../services/role.service'; 
 import { ActivatedRoute, Router } from '@angular/router';
 import { NgForm } from '@angular/forms';
 import { LoginResponse } from '../../responses/user/login.response';
-import { Role } from '../../models/role'; // Đường dẫn đến model Role
+import { Role } from '../../models/role'; 
 import { UserResponse } from '../../responses/user/user.response';
+import { HeaderComponent } from '../header/header.component';
+import { FooterComponent } from '../footer/footer.component';
+import { FormsModule } from '@angular/forms';
+import { CommonModule } from '@angular/common';
+
 
 @Component({
   selector: 'app-login',
   templateUrl: './login.component.html',
-  styleUrls: ['./login.component.scss']
+  styleUrls: ['./login.component.scss'],
+  standalone: true,
+  imports: [
+    HeaderComponent, 
+    FooterComponent, 
+    FormsModule, 
+    CommonModule
+  ]
 })
 export class LoginComponent implements OnInit{
   @ViewChild('loginForm') loginForm!: NgForm;
@@ -20,14 +32,13 @@ export class LoginComponent implements OnInit{
   phoneNumber: string = '33445566';
   password: string = '1234567';
 
-  roles: Role[] = []; // Mảng roles
+  roles: Role[] = []; 
   rememberMe: boolean = true;
-  selectedRole: Role | undefined; // Biến để lưu giá trị được chọn từ dropdown
+  selectedRole: Role | undefined;
   userResponse?: UserResponse
 
   onPhoneNumberChange() {
     console.log(`Phone typed: ${this.phoneNumber}`);
-    //how to validate ? phone must be at least 6 characters
   }
   constructor(
     private router: Router,
@@ -38,10 +49,9 @@ export class LoginComponent implements OnInit{
   ) { }
 
   ngOnInit() {
-    // Gọi API lấy danh sách roles và lưu vào biến roles
     debugger
     this.roleService.getRoles().subscribe({      
-      next: (roles: Role[]) => { // Sử dụng kiểu Role[]
+      next: (roles: Role[]) => { 
         debugger
         this.roles = roles;
         this.selectedRole = roles.length > 0 ? roles[0] : undefined;
@@ -57,13 +67,11 @@ export class LoginComponent implements OnInit{
   }
   createAccount() {
     debugger
-    // Chuyển hướng người dùng đến trang đăng ký (hoặc trang tạo tài khoản)
     this.router.navigate(['/register']); 
   }
   login() {
     const message = `phone: ${this.phoneNumber}` +
-      `password: ${this.password}`;
-    //alert(message);
+      `password: ${this.password}`;;
     debugger
 
     const loginDTO: LoginDTO = {

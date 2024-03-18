@@ -1,14 +1,21 @@
 import { Component, OnInit } from '@angular/core';
 import { UserService } from '../../services/user.service';
-import { UserResponse } from 'src/app/responses/user/user.response';
+import { UserResponse } from '../../responses/user/user.response';
 import { NgbPopoverConfig } from '@ng-bootstrap/ng-bootstrap';
-import { TokenService } from 'src/app/services/token.service';
+import { TokenService } from '../../services/token.service';
 import { ActivatedRoute, Router } from '@angular/router';
+import { CommonModule } from '@angular/common';
+import { FormsModule } from '@angular/forms';
+import { NgbModule } from '@ng-bootstrap/ng-bootstrap';
 
 @Component({
   selector: 'app-header',
   templateUrl: './header.component.html',
-  styleUrls: ['./header.component.scss']
+  styleUrls: ['./header.component.scss'],
+  standalone: true,
+  imports: [
+    CommonModule, FormsModule, NgbModule
+  ]
 })
 export class HeaderComponent implements OnInit{
   userResponse?:UserResponse | null;
@@ -42,12 +49,11 @@ export class HeaderComponent implements OnInit{
       this.tokenService.removeToken();
       this.userResponse = this.userService.getUserResponseFromLocalStorage();    
     }
-    this.isPopoverOpen = false; // Close the popover after clicking an item    
+    this.isPopoverOpen = false;   
   }
 
   
   setActiveNavItem(index: number) {    
     this.activeNavItem = index;
-    //alert(this.activeNavItem);
   }  
 }

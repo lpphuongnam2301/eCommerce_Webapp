@@ -12,11 +12,20 @@ import { Router, ActivatedRoute } from '@angular/router';
 import { UserService } from '../../services/user.service';
 import { TokenService } from '../../services/token.service';
 import { UserResponse } from '../../responses/user/user.response';
-import { UpdateUserDTO } from 'src/app/dtos/user/update.user.dto';
+import { UpdateUserDTO } from '../../dtos/user/update.user.dto';
+import { HeaderComponent } from '../header/header.component';
+import { FooterComponent } from '../footer/footer.component';
+import { FormsModule, ReactiveFormsModule } from '@angular/forms';
+import { CommonModule } from '@angular/common';
+
 @Component({
   selector: 'user-profile',
   templateUrl: './user.profile.component.html',
-  styleUrls: ['./user.profile.component.scss']
+  styleUrls: ['./user.profile.component.scss'],
+  standalone: true,
+  imports: [
+    HeaderComponent, FooterComponent, FormsModule, CommonModule, ReactiveFormsModule
+  ]
 })
 export class UserProfileComponent implements OnInit {
   userResponse?: UserResponse;
@@ -36,7 +45,7 @@ export class UserProfileComponent implements OnInit {
       retype_password: ['', [Validators.minLength(3)]], 
       date_of_birth: [Date.now()],      
     }, {
-      validators: this.passwordMatchValidator// Custom validator function for password match
+      validators: this.passwordMatchValidator
     });
   }
   

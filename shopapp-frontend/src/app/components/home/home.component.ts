@@ -1,23 +1,31 @@
 import { Component, OnInit } from '@angular/core';
 import { Product } from '../../models/product';
 import { Category } from '../../models/category';
-import { ProductService } from 'src/app/services/product.service';
-import { CategoryService } from 'src/app/services/category.service';
-import { environment } from 'src/app/environments/environment';
+import { ProductService } from '../../services/product.service';
+import { CategoryService } from '../../services/category.service';
+import { environment } from '../../environments/environment';
 import { Router } from '@angular/router';
-import { TokenService } from 'src/app/services/token.service';
+import { TokenService } from '../../services/token.service';
+import { HeaderComponent } from '../header/header.component';
+import { FooterComponent } from '../footer/footer.component';
+import { FormsModule } from '@angular/forms';
+import { CommonModule } from '@angular/common';
 
 @Component({
   selector: 'app-home',
   templateUrl: './home.component.html',
-  styleUrls: ['./home.component.scss']
+  styleUrls: ['./home.component.scss'],
+  standalone: true,
+  imports: [
+    HeaderComponent, FooterComponent, FormsModule, CommonModule
+  ]
 })
 export class HomeComponent implements OnInit {
   products: Product[] = [];
-  categories: Category[] = []; // Dữ liệu động từ categoryService
-  selectedCategoryId: number  = 0; // Giá trị category được chọn
+  categories: Category[] = []; 
+  selectedCategoryId: number  = 0; 
   currentPage: number = 1;
-  itemsPerPage: number = 12;
+  itemsPerPage: number = 6;
   pages: number[] = [];
   totalPages:number = 0;
   visiblePages: number[] = [];
@@ -34,8 +42,8 @@ export class HomeComponent implements OnInit {
     this.getProducts(this.keyword, this.selectedCategoryId, this.currentPage, this.itemsPerPage);
     this.getCategories(1, 100);
   }
-  getCategories(page: number, limit: number) {
-    this.categoryService.getCategories(page, limit).subscribe({
+  getCategories(pages: number, limit: number) {
+    this.categoryService.getCategories(pages, limit).subscribe({
       next: (categories: Category[]) => {
         debugger
         this.categories = categories;
@@ -95,10 +103,8 @@ export class HomeComponent implements OnInit {
     return new Array(endPage - startPage + 1).fill(0)
         .map((_, index) => startPage + index);
   }
-  // Hàm xử lý sự kiện khi sản phẩm được bấm vào
   onProductClick(productId: number) {
     debugger
-    // Điều hướng đến trang detail-product với productId là tham số
     this.router.navigate(['/products', productId]);
   }  
 }

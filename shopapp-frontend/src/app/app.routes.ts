@@ -12,7 +12,7 @@ import { OrderDetailComponent } from './components/detail-order/order.detail.com
 import { UserProfileComponent } from './components/user-profile/user.profile.component';
 import { AuthGuardFn } from './guards/auth.guard';
 
-const routes: Routes = [
+export const routes: Routes = [
   { path: '', component: HomeComponent },
   { path: 'login', component: LoginComponent },
   { path: 'register', component: RegisterComponent },
@@ -22,8 +22,3 @@ const routes: Routes = [
   { path: 'orders/:id', component: OrderDetailComponent },
 ];
 
-@NgModule({
-  imports: [RouterModule.forRoot(routes)],
-  exports: [RouterModule]
-})
-export class AppRoutingModule { }

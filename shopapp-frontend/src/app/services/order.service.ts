@@ -14,7 +14,6 @@ export class OrderService {
   constructor(private http: HttpClient) {}
 
   placeOrder(orderData: OrderDTO): Observable<any> {    
-    // Gửi yêu cầu đặt hàng
     return this.http.post(this.apiUrl, orderData);
   }
   getOrderById(orderId: number): Observable<any> {

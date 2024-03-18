@@ -3,20 +3,28 @@ import { Product } from '../../models/product';
 import { CartService } from '../../services/cart.service';
 import { ProductService } from '../../services/product.service';
 import { OrderService } from '../../services/order.service';
-import { environment } from 'src/app/environments/environment';
+import { environment } from '../../environments/environment';
 import { OrderDTO } from '../../dtos/order/order.dto';
-import { OrderResponse } from 'src/app/responses/order/order.response';
-import { OrderDetail } from 'src/app/models/order.detail';
+import { OrderResponse } from '../../responses/order/order.response';
+import { OrderDetail } from '../../models/order.detail';
+import { CommonModule } from '@angular/common';
+import { FormsModule } from '@angular/forms';
+import { HeaderComponent } from '../header/header.component';
+import { FooterComponent } from '../footer/footer.component';
 
 @Component({
   selector: 'app-order-detail',
   templateUrl: './order.detail.component.html',
-  styleUrls: ['./order.detail.component.scss']
+  styleUrls: ['./order.detail.component.scss'],
+  standalone: true,
+  imports: [
+    HeaderComponent, FooterComponent, FormsModule, CommonModule
+  ]
 })
 export class OrderDetailComponent implements OnInit {
 
   orderResponse: OrderResponse = {
-    id: 0, // Hoặc bất kỳ giá trị số nào bạn muốn
+    id: 0, 
     user_id: 0,
     fullname: '',
     phone_number: '',
@@ -25,12 +33,12 @@ export class OrderDetailComponent implements OnInit {
     note: '',
     order_date: new Date(),
     status: '',
-    total_money: 0, // Hoặc bất kỳ giá trị số nào bạn muốn
+    total_money: 0, 
     shipping_method: '',
     shipping_address: '',
     shipping_date: new Date(),
     payment_method: '',
-    order_details: [] // Một mảng rỗng
+    order_details: [] 
   };  
   constructor(private orderService: OrderService) {}
 
@@ -40,7 +48,7 @@ export class OrderDetailComponent implements OnInit {
 
   getOrderDetails(): void {
     debugger
-    const orderId = 10; // Thay bằng ID của đơn hàng bạn muốn lấy.
+    const orderId = 10; 
     this.orderService.getOrderById(orderId).subscribe({
       next: (response: any) => {        
         debugger;       
