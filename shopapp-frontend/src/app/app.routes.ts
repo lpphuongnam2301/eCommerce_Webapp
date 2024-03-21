@@ -11,6 +11,8 @@ import { OrderComponent } from './components/order/order.component';
 import { OrderDetailComponent } from './components/detail-order/order.detail.component';
 import { UserProfileComponent } from './components/user-profile/user.profile.component';
 import { AuthGuardFn } from './guards/auth.guard';
+import { AdminComponent } from './components/admin/admin.component';
+import { AdminGuardFn } from './guards/admin.guard';
 
 export const routes: Routes = [
   { path: '', component: HomeComponent },
@@ -20,5 +22,11 @@ export const routes: Routes = [
   { path: 'orders', component: OrderComponent, canActivate:[AuthGuardFn] },
   { path: 'user-profile', component: UserProfileComponent, canActivate:[AuthGuardFn] },
   { path: 'orders/:id', component: OrderDetailComponent },
+  // { path: 'admin', component: AdminComponent }
+  { 
+    path: 'admin', 
+    component: AdminComponent, 
+    canActivate:[AdminGuardFn] 
+  }, 
 ];
 

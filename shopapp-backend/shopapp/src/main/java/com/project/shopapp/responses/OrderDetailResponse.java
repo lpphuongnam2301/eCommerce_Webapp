@@ -1,16 +1,13 @@
 package com.project.shopapp.responses;
 
 import com.fasterxml.jackson.annotation.JsonProperty;
-import com.project.shopapp.models.Order;
 import com.project.shopapp.models.OrderDetail;
-import jakarta.validation.constraints.Min;
 import lombok.*;
 
-@NoArgsConstructor
-@AllArgsConstructor
-@Setter
-@Data
 @Getter
+@Setter
+@AllArgsConstructor
+@NoArgsConstructor
 @Builder
 public class OrderDetailResponse {
     private Long id;
@@ -21,10 +18,11 @@ public class OrderDetailResponse {
     @JsonProperty("product_id")
     private Long productId;
 
+    @JsonProperty("price")
     private Float price;
 
     @JsonProperty("number_of_products")
-    private int number_of_products;
+    private int numberOfProducts;
 
     @JsonProperty("total_money")
     private Float totalMoney;
@@ -38,10 +36,9 @@ public class OrderDetailResponse {
                 .orderId(orderDetail.getOrder().getId())
                 .productId(orderDetail.getProduct().getId())
                 .price(orderDetail.getPrice())
-                .number_of_products(orderDetail.getNumberOfProducts())
+                .numberOfProducts(orderDetail.getNumberOfProducts())
                 .totalMoney(orderDetail.getTotalMoney())
                 .color(orderDetail.getColor())
                 .build();
     }
-
 }

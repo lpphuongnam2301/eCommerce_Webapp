@@ -66,7 +66,13 @@ export class LoginComponent implements OnInit{
         console.error('Error getting roles:', error);
       }
     });
+    console.log(this.selectedRole);
   }
+  test()
+  {
+    console.log(`${this.selectedRole?.name} id: ${this.selectedRole?.id}`);
+  }
+
   createAccount() {
     debugger
     this.router.navigate(['/register']); 

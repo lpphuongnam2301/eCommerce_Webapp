@@ -12,6 +12,8 @@ import com.project.shopapp.services.ProductService;
 import jakarta.validation.Valid;
 import jakarta.websocket.server.PathParam;
 import lombok.RequiredArgsConstructor;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.core.io.UrlResource;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageRequest;
@@ -40,7 +42,7 @@ import java.util.stream.Collectors;
 @RequestMapping("${api.prefix}/products")
 @RequiredArgsConstructor
 public class ProductController {
-
+    private static final Logger logger = LoggerFactory.getLogger(ProductController.class);
     private final ProductService productService;
     @GetMapping("")
     public ResponseEntity<?> getProducts
@@ -49,6 +51,7 @@ public class ProductController {
               @RequestParam(defaultValue = "") String keyword,
               @RequestParam(defaultValue = "0", name = "category_id") Long categoryId)
     {
+        logger.info(String.format("keyword = %s, category_id = %d, page = %d, limit = %d"), keyword, categoryId, page, limit);
         //phan trang
         PageRequest pageRequest = PageRequest.of(page, limit, Sort.by("id").ascending());
         Page<ProductResponse> productPage = productService.getAllProducts(pageRequest, keyword, categoryId);

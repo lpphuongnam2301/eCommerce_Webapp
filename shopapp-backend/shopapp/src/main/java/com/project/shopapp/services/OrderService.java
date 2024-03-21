@@ -11,6 +11,8 @@ import jakarta.transaction.Transactional;
 import lombok.RequiredArgsConstructor;
 import org.modelmapper.ModelMapper;
 import org.springframework.cglib.core.Local;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
 
 import java.time.LocalDate;
@@ -96,7 +98,14 @@ public class OrderService implements IOrderService{
 
     @Override
     public List<Order> findByUserId(Long userId) {
-        return null;
-                //orderRepository.findByUserId(userId);
+//        return null;
+                return orderRepository.findByUserId(userId);
     }
+
+    @Override
+    public Page<Order> findByKeyWord(String keyword, Pageable pageable) {
+        return orderRepository.findByKeyWord(keyword, pageable);
+    }
+
+
 }

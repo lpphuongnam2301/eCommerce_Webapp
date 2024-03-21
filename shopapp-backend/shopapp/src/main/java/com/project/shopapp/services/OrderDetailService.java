@@ -46,11 +46,15 @@ public class OrderDetailService implements IOrderDetailService {
     public OrderDetail updateOrderDetail(Long id, OrderDetailDTO orderDetailDTO) throws Exception {
         OrderDetail orderDetail = orderDetailRepository.findById(id).orElseThrow(() -> new Exception("Cannot find order detail with ID: " + id ));
         Order order = orderRepository.findById(orderDetailDTO.getOrderId()).orElseThrow(() -> new Exception("Cannot find order with ID: " + orderDetailDTO.getOrderId() ));
-
+        Product existingProduct = productRepository.findById(orderDetailDTO.getProductId())
+                .orElseThrow(() -> new Exception(
+                        "Cannot find product with id: " + orderDetailDTO.getProductId()));
         orderDetail.setPrice(orderDetailDTO.getPrice());
         orderDetail.setNumberOfProducts(orderDetailDTO.getNumber_of_product());
         orderDetail.setTotalMoney(orderDetailDTO.getTotalMoney());
         orderDetail.setColor(orderDetailDTO.getColor());
+        orderDetail.setOrder(order);
+        orderDetail.setProduct(existingProduct);
         return orderDetailRepository.save(orderDetail);
     }
 

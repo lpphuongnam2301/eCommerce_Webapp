@@ -17,12 +17,13 @@ import java.util.List;
 public class RoleController {
     private final RoleService roleService;
     @GetMapping("")
-    public ResponseEntity<ResponseObject> getAllRoles() {
+    public ResponseEntity<?> getAllRoles() {
         List<Role> roles = roleService.getAllRoles();
-        return ResponseEntity.ok().body(ResponseObject.builder()
-                        .message("Get roles successfully")
-                        .status(HttpStatus.OK)
-                        .data(roles)
-                .build());
+        return ResponseEntity.ok().body(roles);
+//        return ResponseEntity.ok().body(ResponseObject.builder()
+//                        .message("Get roles successfully")
+//                        .status(HttpStatus.OK)
+//                        .data(roles)
+//                .build());
     }
 }
