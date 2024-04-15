@@ -3,18 +3,12 @@ import { Category } from '../../../../models/category';
 import { CategoryService } from '../../../../services/category.service';
 import { ActivatedRoute, Router } from '@angular/router';
 import { UpdateCategoryDTO } from '../../../../dtos/category/update.category.dto';
-import { CommonModule } from '@angular/common';
-import { FormsModule } from '@angular/forms';
+
 
 @Component({
   selector: 'app-detail.category.admin',
   templateUrl: './update.category.admin.component.html',
-  styleUrls: ['./update.category.admin.component.scss'],
-  standalone: true,
-  imports: [   
-    CommonModule,
-    FormsModule,
-  ]
+  styleUrls: ['./update.category.admin.component.scss']
 })
 
 export class UpdateCategoryAdminComponent implements OnInit {
@@ -54,6 +48,7 @@ export class UpdateCategoryAdminComponent implements OnInit {
     });     
   }
   updateCategory() {
+    // Implement your update logic here
     const updateCategoryDTO: UpdateCategoryDTO = {
       name: this.updatedCategory.name,      
     };

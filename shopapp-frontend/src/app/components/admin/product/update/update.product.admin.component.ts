@@ -5,21 +5,14 @@ import { Product } from '../../../../models/product';
 import { Category } from '../../../../models/category';
 import { ProductService } from '../../../../services/product.service';
 import { CategoryService } from '../../../../services/category.service';
-import { environment } from '../../../../environments/environment';
+import { environment } from '../../../../../environments/environment';
 import { ProductImage } from '../../../../models/product.image';
 import { UpdateProductDTO } from '../../../../dtos/product/update.product.dto';
-import { CommonModule } from '@angular/common';
-import { FormsModule } from '@angular/forms';
 
 @Component({
   selector: 'app-detail.product.admin',
   templateUrl: './update.product.admin.component.html',
-  styleUrls: ['./update.product.admin.component.scss'],
-  standalone: true,
-  imports: [   
-    CommonModule,
-    FormsModule,
-  ]
+  styleUrls: ['./update.product.admin.component.scss']
 })
 
 export class UpdateProductAdminComponent implements OnInit {
@@ -104,7 +97,7 @@ export class UpdateProductAdminComponent implements OnInit {
   showImage(index: number): void {
     debugger
     if (this.product && this.product.product_images && 
-        this.product.product_images.length > 0) {      
+        this.product.product_images.length > 0) {       
       if (index < 0) {
         index = 0;
       } else if (index >= this.product.product_images.length) {
@@ -132,12 +125,15 @@ export class UpdateProductAdminComponent implements OnInit {
       alert('Please select a maximum of 5 images.');
       return;
     }
+
     this.images = files;
     this.productService.uploadImages(this.productId, this.images).subscribe({
       next: (imageResponse) => {
-        debugger             
+        debugger
+            
         console.log('Images uploaded successfully:', imageResponse);
         this.images = [];       
+
         this.getProductDetails(); 
       },
       error: (error) => {

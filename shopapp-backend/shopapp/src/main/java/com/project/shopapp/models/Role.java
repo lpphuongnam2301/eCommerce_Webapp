@@ -1,25 +1,25 @@
 package com.project.shopapp.models;
 
 import jakarta.persistence.*;
-import jakarta.validation.constraints.NotNull;
-import lombok.*;
+import lombok.AllArgsConstructor;
+import lombok.Getter;
+import lombok.NoArgsConstructor;
+import lombok.Setter;
 
 @Entity
 @Table(name = "roles")
-@Data
-@Builder
-@NoArgsConstructor
-@AllArgsConstructor
 @Getter
 @Setter
+@AllArgsConstructor
+@NoArgsConstructor
 public class Role {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
-    @NotNull
+    @Column(name = "name", nullable = false)
     private String name;
 
-    public static String admin = "ADMIN";
-    public static String user = "USER";
+    public static String ADMIN = "ADMIN";
+    public static String USER = "USER";
 }

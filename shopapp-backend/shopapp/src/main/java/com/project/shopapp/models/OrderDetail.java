@@ -1,27 +1,23 @@
 package com.project.shopapp.models;
 
 import com.fasterxml.jackson.annotation.JsonBackReference;
-import com.fasterxml.jackson.annotation.JsonIgnore;
-import com.fasterxml.jackson.annotation.JsonManagedReference;
 import jakarta.persistence.*;
 import lombok.*;
 
 @Entity
 @Table(name = "order_details")
-@Builder
-@NoArgsConstructor
-@AllArgsConstructor
 @Getter
 @Setter
+@AllArgsConstructor
+@NoArgsConstructor
+@Builder
 public class OrderDetail {
-
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
     @ManyToOne
     @JoinColumn(name = "order_id")
-//    @JsonIgnore
     @JsonBackReference
     private Order order;
 
@@ -38,5 +34,11 @@ public class OrderDetail {
     @Column(name = "total_money", nullable = false)
     private Float totalMoney;
 
+    @Column(name = "color")
     private String color;
+
+    @ManyToOne
+    @JoinColumn(name = "coupon_id", nullable = true)
+    @JsonBackReference
+    private Coupon coupon;
 }

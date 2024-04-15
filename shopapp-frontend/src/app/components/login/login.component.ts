@@ -2,38 +2,26 @@ import { Component, ViewChild, OnInit } from '@angular/core';
 import { LoginDTO } from '../../dtos/user/login.dto';
 import { UserService } from '../../services/user.service';
 import { TokenService } from '../../services/token.service';
-import { RoleService } from '../../services/role.service';
+import { RoleService } from '../../services/role.service'; // Import RoleService
 import { ActivatedRoute, Router } from '@angular/router';
 import { NgForm } from '@angular/forms';
 import { LoginResponse } from '../../responses/user/login.response';
-import { Role } from '../../models/role'; 
+import { Role } from '../../models/role'; // Đường dẫn đến model Role
 import { UserResponse } from '../../responses/user/user.response';
 import { CartService } from '../../services/cart.service';
-
-import { HeaderComponent } from '../header/header.component';
-import { FooterComponent } from '../footer/footer.component';
-import { CommonModule } from '@angular/common';
-import { FormsModule } from '@angular/forms';
-
 @Component({
   selector: 'app-login',
   templateUrl: './login.component.html',
-  styleUrls: ['./login.component.scss'],
-  standalone: true,
-  imports: [
-    FooterComponent,
-    HeaderComponent,
-    CommonModule,
-    FormsModule
-  ]
+  styleUrls: ['./login.component.scss']
 })
 export class LoginComponent implements OnInit{
   @ViewChild('loginForm') loginForm!: NgForm;
-  phoneNumber: string = '0555555555';
-  password: string = '123456';
+
+  phoneNumber: string = '33445566';
+  password: string = '123456789';
   showPassword: boolean = false;
 
-  roles: Role[] = []; 
+  roles: Role[] = []; // Mảng roles
   rememberMe: boolean = true;
   selectedRole: Role | undefined; 
   userResponse?: UserResponse
@@ -53,7 +41,7 @@ export class LoginComponent implements OnInit{
   ngOnInit() {
     debugger
     this.roleService.getRoles().subscribe({      
-      next: (roles: Role[]) => { 
+      next: (roles: Role[]) => { // Sử dụng kiểu Role[]
         debugger
         this.roles = roles;
         this.selectedRole = roles.length > 0 ? roles[0] : undefined;
@@ -66,13 +54,7 @@ export class LoginComponent implements OnInit{
         console.error('Error getting roles:', error);
       }
     });
-    console.log(this.selectedRole);
   }
-  test()
-  {
-    console.log(`${this.selectedRole?.name} id: ${this.selectedRole?.id}`);
-  }
-
   createAccount() {
     debugger
     this.router.navigate(['/register']); 
@@ -80,6 +62,7 @@ export class LoginComponent implements OnInit{
   login() {
     const message = `phone: ${this.phoneNumber}` +
       `password: ${this.password}`;
+    //alert(message);
     debugger
 
     const loginDTO: LoginDTO = {

@@ -6,23 +6,13 @@ import { OrderService } from '../../services/order.service';
 import { OrderDTO } from '../../dtos/order/order.dto';
 import { ActivatedRoute } from '@angular/router';
 import { OrderResponse } from '../../responses/order/order.response';
-import { environment } from '../../environments/environment';
+import { environment } from '../../../environments/environment';
 import { OrderDetail } from '../../models/order.detail';
-import { FooterComponent } from '../footer/footer.component';
-import { HeaderComponent } from '../header/header.component';
-import { CommonModule } from '@angular/common';
-
 
 @Component({
   selector: 'app-order-detail',
   templateUrl: './order.detail.component.html',
-  styleUrls: ['./order.detail.component.scss'],
-  standalone: true,
-  imports: [
-    FooterComponent,
-    HeaderComponent,
-    CommonModule
-  ]
+  styleUrls: ['./order.detail.component.scss']
 })
 export class OrderDetailComponent implements OnInit {  
   orderResponse: OrderResponse = {

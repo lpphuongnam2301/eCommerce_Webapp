@@ -41,10 +41,9 @@
                   </div>
                   
                 <div class="form-group">
-                    <div>
                     <select class="form-control access-right"
-                        [(ngModel)]="selectedRole" (input) = "test()">
-                        <!-- <option selected disabled style="color: white;">Quyền đăng nhập</option> -->
+                        [(ngModel)]="selectedRole">
+                        <option selected disabled>Quyền đăng nhập</option>
                         <option *ngFor="let role of roles" [ngValue]="role">
                             {{ role.name }}
                         </option>

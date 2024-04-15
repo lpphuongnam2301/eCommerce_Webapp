@@ -6,7 +6,7 @@ import {
   HttpHeaders 
 } from '@angular/common/http';
 import { Observable } from 'rxjs';
-import { environment } from '../environments/environment';
+import { environment } from '../../environments/environment';
 import { OrderDTO } from '../dtos/order/order.dto';
 import { OrderResponse } from '../responses/order/order.response';
 
@@ -35,7 +35,7 @@ export class OrderService {
       .set('limit', limit.toString());            
       return this.http.get<any>(this.apiGetAllOrders, { params });
   }
-  updateOrder(orderId: number, orderData: OrderDTO): Observable<Object> {
+  updateOrder(orderId: number, orderData: OrderDTO): Observable<any> {
     const url = `${environment.apiBaseUrl}/orders/${orderId}`;
     return this.http.put(url, orderData);
   }

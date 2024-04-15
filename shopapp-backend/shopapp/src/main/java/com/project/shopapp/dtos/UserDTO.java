@@ -1,33 +1,29 @@
 package com.project.shopapp.dtos;
 
 import com.fasterxml.jackson.annotation.JsonProperty;
-import jakarta.validation.constraints.Min;
 import jakarta.validation.constraints.NotBlank;
 import jakarta.validation.constraints.NotNull;
-import jakarta.validation.constraints.Size;
 import lombok.*;
 
 import java.util.Date;
 
 @Data
 @Builder
-@Setter
-@Getter
-@NoArgsConstructor
 @AllArgsConstructor
+@NoArgsConstructor
+@Getter
+@Setter
 public class UserDTO {
-
     @JsonProperty("fullname")
     private String fullName;
 
     @JsonProperty("phone_number")
     @NotBlank(message = "Phone number is required")
-    @Size(min = 10, max = 10, message = "Phone number is invalid")
     private String phoneNumber;
 
     private String address;
 
-    @NotBlank(message = "Password is required")
+    @NotBlank(message = "Password cannot be blank")
     private String password;
 
     @JsonProperty("retype_password")
@@ -44,5 +40,5 @@ public class UserDTO {
 
     @NotNull(message = "Role ID is required")
     @JsonProperty("role_id")
-    private long roleId;
+    private Long roleId;
 }

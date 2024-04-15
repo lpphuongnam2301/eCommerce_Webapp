@@ -1,22 +1,23 @@
 package com.project.shopapp.models;
 
+import com.fasterxml.jackson.annotation.JsonManagedReference;
 import jakarta.persistence.*;
 import lombok.*;
 import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.authority.SimpleGrantedAuthority;
 import org.springframework.security.core.userdetails.UserDetails;
-import org.springframework.security.core.userdetails.UserDetailsService;
+import org.springframework.security.oauth2.core.user.OAuth2User;
 
 import java.util.*;
 
 @Entity
 @Table(name = "users")
-@NoArgsConstructor
-@AllArgsConstructor
 @Getter
-@Builder
 @Setter
-public class User extends BaseEntity implements UserDetails {
+@AllArgsConstructor
+@NoArgsConstructor
+@Builder
+public class User extends BaseEntity implements UserDetails, OAuth2User {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
@@ -24,20 +25,20 @@ public class User extends BaseEntity implements UserDetails {
     @Column(name = "fullname", length = 100)
     private String fullName;
 
-    @Column(name = "date_of_birth", length = 100)
-    private Date dateOfBirth;
-
     @Column(name = "phone_number", length = 10, nullable = false)
     private String phoneNumber;
-
-    @Column(name = "password", length = 200, nullable = false)
-    private String password;
 
     @Column(name = "address", length = 200)
     private String address;
 
+    @Column(name = "password", length = 200, nullable = false)
+    private String password;
+
     @Column(name = "is_active")
-    public boolean active;
+    private boolean active;
+
+    @Column(name = "date_of_birth")
+    private Date dateOfBirth;
 
     @Column(name = "facebook_account_id")
     private int facebookAccountId;
@@ -47,16 +48,16 @@ public class User extends BaseEntity implements UserDetails {
 
     @ManyToOne
     @JoinColumn(name = "role_id")
-    private Role role;
+    private com.project.shopapp.models.Role role;
 
     @Override
     public Collection<? extends GrantedAuthority> getAuthorities() {
         List<SimpleGrantedAuthority> authorityList = new ArrayList<>();
-        authorityList.add(new SimpleGrantedAuthority(getRole().getName().toUpperCase()));
+        authorityList.add(new SimpleGrantedAuthority("ROLE_"+getRole().getName().toUpperCase()));
+        //authorityList.add(new SimpleGrantedAuthority("ROLE_ADMIN"));
 
         return authorityList;
     }
-
     @Override
     public String getUsername() {
         return phoneNumber;
@@ -81,4 +82,18 @@ public class User extends BaseEntity implements UserDetails {
     public boolean isEnabled() {
         return true;
     }
+
+    //Login facebook
+    @Override
+    public Map<String, Object> getAttributes() {
+        return new HashMap<String, Object>();
+    }
+    @Override
+    public String getName() {
+        return getAttribute("name");
+    }
+    @OneToMany(mappedBy = "user", cascade = CascadeType.ALL)
+
+    @JsonManagedReference
+    private List<Comment> comments = new ArrayList<>();
 }

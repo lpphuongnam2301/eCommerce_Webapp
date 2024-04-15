@@ -1,24 +1,16 @@
-import { Component, Inject, OnInit } from '@angular/core';
+import { Component, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
-import { DOCUMENT } from '@angular/common';
 
 import { Location } from '@angular/common';
-import { environment } from '../../../environments/environment';
+import { environment } from '../../../../environments/environment';
 import { Product } from '../../../models/product';
 import { ProductService } from '../../../services/product.service';
-import { CommonModule } from '@angular/common';
-import { FormsModule } from '@angular/forms';
 
 @Component({
   selector: 'app-product-admin',
   templateUrl: './product.admin.component.html',
   styleUrls: [
     './product.admin.component.scss',        
-  ],
-  standalone: true,
-  imports: [   
-    CommonModule,
-    FormsModule,
   ]
 })
 export class ProductAdminComponent implements OnInit {
@@ -30,18 +22,15 @@ export class ProductAdminComponent implements OnInit {
     totalPages:number = 0;
     visiblePages: number[] = [];
     keyword:string = "";
-    localStorage?:Storage;
-
     constructor(
       private productService: ProductService,      
       private router: Router,     
-      private location: Location,
-      @Inject(DOCUMENT) private document: Document
+      private location: Location 
     ) {
-      this.localStorage = document.defaultView?.localStorage;
+
     }
     ngOnInit() {
-      this.currentPage = Number(this.localStorage?.getItem('currentProductAdminPage')) || 0; 
+      this.currentPage = Number(localStorage.getItem('currentProductAdminPage')) || 0; 
       this.getProducts(this.keyword, 
         this.selectedCategoryId, 
         this.currentPage, this.itemsPerPage);      
@@ -49,6 +38,7 @@ export class ProductAdminComponent implements OnInit {
     searchProducts() {
       this.currentPage = 0;
       this.itemsPerPage = 12;
+      //Mediocre Iron Wallet
       debugger
       this.getProducts(this.keyword.trim(), this.selectedCategoryId, this.currentPage, this.itemsPerPage);
     }
@@ -78,7 +68,7 @@ export class ProductAdminComponent implements OnInit {
     onPageChange(page: number) {
       debugger;
       this.currentPage = page < 0 ? 0 : page;
-      this.localStorage?.setItem('currentProductAdminPage', String(this.currentPage));     
+      localStorage.setItem('currentProductAdminPage', String(this.currentPage));     
       this.getProducts(this.keyword, this.selectedCategoryId, this.currentPage, this.itemsPerPage);
     }
   

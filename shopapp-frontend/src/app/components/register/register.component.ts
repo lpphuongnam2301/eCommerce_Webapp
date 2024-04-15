@@ -3,21 +3,10 @@ import { NgForm } from '@angular/forms';
 import { Router } from '@angular/router';
 import { UserService } from '../../services/user.service';
 import { RegisterDTO } from '../../dtos/user/register.dto';
-import { CommonModule } from '@angular/common';
-import { FormsModule } from '@angular/forms';
-import { HeaderComponent } from '../header/header.component';
-import { FooterComponent } from '../footer/footer.component';
 @Component({
   selector: 'app-register',
   templateUrl: './register.component.html',
-  styleUrls: ['./register.component.scss'],
-  standalone: true,
-  imports: [
-    CommonModule,
-    FormsModule,
-    HeaderComponent,
-    FooterComponent
-  ]
+  styleUrls: ['./register.component.scss']
 })
 export class RegisterComponent {
   @ViewChild('registerForm') registerForm!: NgForm;
@@ -40,10 +29,12 @@ export class RegisterComponent {
     this.isAccepted = true;
     this.dateOfBirth = new Date();
     this.dateOfBirth.setFullYear(this.dateOfBirth.getFullYear() - 18);
+    //inject
 
   }
   onPhoneNumberChange(){
     console.log(`Phone typed: ${this.phoneNumber}`)
+    //how to validate ? phone must be at least 6 characters
   }
   register() {
     const message = `phone: ${this.phoneNumber}`+
@@ -53,6 +44,7 @@ export class RegisterComponent {
                     `fullName: ${this.fullName}`+
                     `isAccepted: ${this.isAccepted}`+
                     `dateOfBirth: ${this.dateOfBirth}`;
+    //alert(message);
     debugger
     
     const registerDTO:RegisterDTO = {

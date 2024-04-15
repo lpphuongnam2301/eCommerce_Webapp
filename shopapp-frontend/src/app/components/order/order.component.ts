@@ -4,48 +4,34 @@ import { CartService } from '../../services/cart.service';
 import { ProductService } from '../../services/product.service';
 import { OrderService } from '../../services/order.service';
 import { TokenService } from '../../services/token.service';
-import { environment } from '../../environments/environment';
+import { environment } from '../../../environments/environment';
 import { OrderDTO } from '../../dtos/order/order.dto';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { Router, ActivatedRoute } from '@angular/router';
 import { Order } from '../../models/order';
 
-import { HeaderComponent } from '../header/header.component';
-import { FooterComponent } from '../footer/footer.component';
-import { CommonModule } from '@angular/common';
-import { FormsModule, ReactiveFormsModule } from '@angular/forms';
-
 @Component({
   selector: 'app-order',
   templateUrl: './order.component.html',
-  styleUrls: ['./order.component.scss'],
-  standalone: true,
-  imports: [
-    FooterComponent,
-    HeaderComponent,
-    CommonModule,
-    FormsModule,    
-    ReactiveFormsModule,
-  ]
+  styleUrls: ['./order.component.scss']
 })
 export class OrderComponent implements OnInit{
   orderForm: FormGroup; 
   cartItems: { product: Product, quantity: number }[] = [];
   couponCode: string = ''; 
-  totalAmount: number = 0; 
+  totalAmount: number = 0;
   cart: Map<number, number> = new Map();
   orderData: OrderDTO = {
-    user_id: 0, 
-    fullname: '',
-    email: '', 
+    user_id: 0,
+    fullname: '', 
+    email: '',
     phone_number: '', 
-    address: '',
+    address: '', 
     status: 'pending',
     note: '', 
     total_money: 0, 
-    payment_method: 'cod', 
-    shipping_method: 'express',
-    coupon_code: '', 
+    payment_method: 'cod',
+    shipping_method: 'express', 
     cart_items: []
   };
 
@@ -59,10 +45,10 @@ export class OrderComponent implements OnInit{
     private router: Router,
   ) {
     this.orderForm = this.formBuilder.group({
-      fullname: ['', Validators.required],    
+      fullname: ['', Validators.required], 
       email: ['', [Validators.email]],
       phone_number: ['', [Validators.required, Validators.minLength(6)]], 
-      address: ['', [Validators.required, Validators.minLength(5)]], 
+      address: ['', [Validators.required, Validators.minLength(5)]],
       note: [''],
       shipping_method: ['express'],
       payment_method: ['cod']
@@ -71,10 +57,11 @@ export class OrderComponent implements OnInit{
   
   ngOnInit(): void {  
     debugger
+    //this.cartService.clearCart();
     this.orderData.user_id = this.tokenService.getUserId();    
     debugger
     this.cart = this.cartService.getCart();
-    const productIds = Array.from(this.cart.keys()); 
+    const productIds = Array.from(this.cart.keys());   
 
     debugger    
     if(productIds.length === 0) {
@@ -83,6 +70,7 @@ export class OrderComponent implements OnInit{
     this.productService.getProductsByIds(productIds).subscribe({
       next: (products) => {            
         debugger
+
         this.cartItems = productIds.map((productId) => {
           debugger
           const product = products.find((p) => p.id === productId);
@@ -109,6 +97,15 @@ export class OrderComponent implements OnInit{
   placeOrder() {
     debugger
     if (this.orderForm.errors == null) {
+
+      this.orderData.fullname = this.orderForm.get('fullname')!.value;
+      this.orderData.email = this.orderForm.get('email')!.value;
+      this.orderData.phone_number = this.orderForm.get('phone_number')!.value;
+      this.orderData.address = this.orderForm.get('address')!.value;
+      this.orderData.note = this.orderForm.get('note')!.value;
+      this.orderData.shipping_method = this.orderForm.get('shipping_method')!.value;
+      this.orderData.payment_method = this.orderForm.get('payment_method')!.value;
+
       this.orderData = {
         ...this.orderData,
         ...this.orderForm.value
@@ -118,6 +115,7 @@ export class OrderComponent implements OnInit{
         quantity: cartItem.quantity
       }));
       this.orderData.total_money =  this.totalAmount;
+
       this.orderService.placeOrder(this.orderData).subscribe({
         next: (response:Order) => {
           debugger;          
@@ -135,6 +133,7 @@ export class OrderComponent implements OnInit{
         },
       });
     } else {
+
       alert('Dữ liệu không hợp lệ. Vui lòng kiểm tra lại.');
     }        
   }
@@ -142,6 +141,7 @@ export class OrderComponent implements OnInit{
   decreaseQuantity(index: number): void {
     if (this.cartItems[index].quantity > 1) {
       this.cartItems[index].quantity--;
+
       this.updateCartFromCartItems();
       this.calculateTotal();
     }
@@ -149,10 +149,11 @@ export class OrderComponent implements OnInit{
   
   increaseQuantity(index: number): void {
     this.cartItems[index].quantity++;   
+    // Cập nhật lại this.cart từ this.cartItems
     this.updateCartFromCartItems();
     this.calculateTotal();
   }    
-  
+
   calculateTotal(): void {
       this.totalAmount = this.cartItems.reduce(
           (total, item) => total + item.product.price * item.quantity,
@@ -161,14 +162,16 @@ export class OrderComponent implements OnInit{
   }
   confirmDelete(index: number): void {
     if (confirm('Bạn có chắc chắn muốn xóa sản phẩm này?')) {
+
       this.cartItems.splice(index, 1);
+
       this.updateCartFromCartItems();
+
       this.calculateTotal();
     }
   }
-  applyCoupon(): void {
 
-  }
+
   private updateCartFromCartItems(): void {
     this.cart.clear();
     this.cartItems.forEach((item) => {

@@ -33,7 +33,7 @@ export class OrderDTO {
 
   coupon_code: string;
 
-  cart_items: { product_id: number, quantity: number }[]; 
+  cart_items: { product_id: number, quantity: number }[];
 
   constructor(data: any) {
     this.user_id = data.user_id;

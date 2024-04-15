@@ -2,7 +2,7 @@ package com.project.shopapp.controllers;
 
 import com.project.shopapp.models.Category;
 import com.project.shopapp.responses.ResponseObject;
-import com.project.shopapp.services.CategoryService;
+import com.project.shopapp.services.category.CategoryService;
 import lombok.AllArgsConstructor;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;

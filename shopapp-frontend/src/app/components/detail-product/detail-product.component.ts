@@ -3,25 +3,13 @@ import { Router, ActivatedRoute } from '@angular/router';
 import { Product } from '../../models/product';
 import { ProductService } from '../../services/product.service';
 import { CartService } from '../../services/cart.service';
-import { environment } from '../../environments/environment';
+import { environment } from '../../../environments/environment';
 import { ProductImage } from '../../models/product.image';
-import { HeaderComponent } from '../header/header.component';
-import { FooterComponent } from '../footer/footer.component';
-import { CommonModule } from '@angular/common';
-import { NgbModule } from '@ng-bootstrap/ng-bootstrap';
-
 
 @Component({
   selector: 'app-detail-product',
   templateUrl: './detail-product.component.html',
-  styleUrls: ['./detail-product.component.scss'],
-  standalone: true,
-  imports: [
-    FooterComponent,
-    HeaderComponent,
-    CommonModule,
-    NgbModule
-  ]
+  styleUrls: ['./detail-product.component.scss']
 })
 
 export class DetailProductComponent implements OnInit {
@@ -40,7 +28,7 @@ export class DetailProductComponent implements OnInit {
     ) {
       
     }
-    ngOnInit() { 
+    ngOnInit() {     
       const idParam = this.activatedRoute.snapshot.paramMap.get('id');
       debugger
       if (idParam !== null) {
@@ -74,18 +62,20 @@ export class DetailProductComponent implements OnInit {
     showImage(index: number): void {
       debugger
       if (this.product && this.product.product_images && 
-          this.product.product_images.length > 0) {       
+          this.product.product_images.length > 0) {
+     
         if (index < 0) {
           index = 0;
         } else if (index >= this.product.product_images.length) {
           index = this.product.product_images.length - 1;
         }        
+
         this.currentImageIndex = index;
       }
     }
     thumbnailClick(index: number) {
       debugger
-      this.currentImageIndex = index; 
+      this.currentImageIndex = index; // Cập nhật currentImageIndex
     }  
     nextImage(): void {
       debugger

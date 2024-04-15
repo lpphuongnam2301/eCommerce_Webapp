@@ -3,11 +3,8 @@ import { ActivatedRoute, Router } from '@angular/router';
 import { NgForm } from '@angular/forms';
 import { NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
-import { FormsModule } from '@angular/forms';
-import { inject } from '@angular/core';
-
 import { Observable } from 'rxjs';
-import { environment } from '../../../environments/environment';
+import { environment } from '../../../../environments/environment';
 import { OrderDTO } from '../../../dtos/order/order.dto';
 import { OrderResponse } from '../../../responses/order/order.response';
 import { OrderService } from '../../../services/order.service';
@@ -16,18 +13,13 @@ import { OrderService } from '../../../services/order.service';
 @Component({
   selector: 'app-detail-order-admin',
   templateUrl: './detail.order.admin.component.html',
-  styleUrls: ['./detail.order.admin.component.scss'],
-  standalone: true,
-  imports: [   
-    CommonModule,
-    FormsModule,
-  ]
+  styleUrls: ['./detail.order.admin.component.scss']
 })
 
 export class DetailOrderAdminComponent implements OnInit{    
   orderId:number = 0;
   orderResponse: OrderResponse = {
-    id: 0,
+    id: 0, 
     user_id: 0,
     fullname: '',
     phone_number: '',
@@ -44,8 +36,8 @@ export class DetailOrderAdminComponent implements OnInit{
     order_details: [],
     
   };  
-  private orderService = inject(OrderService);
-  constructor(    
+  constructor(
+    private orderService: OrderService,
     private route: ActivatedRoute,
     private router: Router
     ) {}
@@ -79,6 +71,7 @@ export class DetailOrderAdminComponent implements OnInit{
           .map((order_detail:any) => {
           order_detail.product.thumbnail = `${environment.apiBaseUrl}/products/images/${order_detail.product.thumbnail}`;
           order_detail.number_of_products = order_detail.numberOfProducts
+          //order_detail.total_money = order_detail.totalMoney
           return order_detail;
         });        
         this.orderResponse.payment_method = response.payment_method;
@@ -92,34 +85,33 @@ export class DetailOrderAdminComponent implements OnInit{
         this.orderResponse.shipping_method = response.shipping_method;        
         this.orderResponse.status = response.status;     
         debugger   
-      },      
+      },
       complete: () => {
         debugger;        
       },
       error: (error: any) => {
         debugger;
         console.error('Error fetching detail:', error);
-      },
+      }
     });
   }    
   
   saveOrder(): void {    
-    debugger        
+    debugger    
     this.orderService
       .updateOrder(this.orderId, new OrderDTO(this.orderResponse))
       .subscribe({
-      next: (response: Object) => {
-        debugger   
+      next: (response: any) => {
+        debugger
+        console.log('Order updated successfully:', response);
         this.router.navigate(['../'], { relativeTo: this.route });
       },
       complete: () => {
         debugger;        
       },
       error: (error: any) => {
-        // Handle the error
         debugger
         console.error('Error updating order:', error);
-        this.router.navigate(['../'], { relativeTo: this.route });
       }
     });   
   }

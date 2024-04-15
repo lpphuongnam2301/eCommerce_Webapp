@@ -7,14 +7,14 @@ import lombok.*;
 
 @Entity
 @Table(name = "product_images")
-@Builder
-@NoArgsConstructor
-@AllArgsConstructor
 @Getter
 @Setter
-public class ProductImage {
+@AllArgsConstructor
+@NoArgsConstructor
+@Builder
 
-    public static final int MAXIMUM_IMAGES = 10;
+public class ProductImage {
+    public static final int MAXIMUM_IMAGES_PER_PRODUCT = 6;
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
@@ -24,7 +24,7 @@ public class ProductImage {
     @JsonIgnore
     private Product product;
 
-    @JsonProperty("image_url")
     @Column(name = "image_url", length = 300)
+    @JsonProperty("image_url")
     private String imageUrl;
 }

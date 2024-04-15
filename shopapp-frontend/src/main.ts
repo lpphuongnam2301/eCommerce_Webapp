@@ -1,6 +1,12 @@
-import { bootstrapApplication } from '@angular/platform-browser';
-import { appConfig } from './app/app.config';
-import { AppComponent } from './app/app/app.component';
+import { platformBrowserDynamic } from '@angular/platform-browser-dynamic';
+/**
+ 
+"C:\Program Files\Google\Chrome\Application\chrome.exe" --disable-web-security --user-data-dir="C:\tmpChromeSession"
 
-bootstrapApplication(AppComponent, appConfig)
-  .catch((err) => console.error(err));
+open -n -a "Google Chrome" --args --user-data-dir=/tmp/temp_chrome_user_data_dir http://localhost:4200/ --disable-web-security 
+ */
+import { AppModule } from './app/app.module';
+
+
+platformBrowserDynamic().bootstrapModule(AppModule)
+  .catch(err => console.error(err));
